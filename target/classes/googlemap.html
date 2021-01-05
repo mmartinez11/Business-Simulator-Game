@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, intial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>My Google Map</title>
+        <style>
+             #map {
+                height: 100%;
+                }
+            html, body {
+                height: 100%;
+                width: 100%;
+                margin: auto;
+                padding: 0;
+            }
+          </style>
+    </head>
+        <div id="map"></div>
+
+		<script>
+		<!-- Called by Java Code and is currently in testing -->
+		function callMapsTwo(latitude, longitude)
+		{
+			  var lat = latitude;
+			  var long = longitude;
+			  
+			
+			  initMapOne(lat, long);
+			
+		}
+		
+		function callMarker(storelat, storelong, sname)
+		{
+			var slat =  storelat;
+			var slong = storelong;
+			
+			var sm = sname;
+			
+			putMarker(slat, slong, sm);
+		}
+		
+		function deleteMarker(indx)
+		{
+		
+			var index = indx;
+			
+			removeMarker(index);
+		
+		}
+		
+		</script>
+
+        <Script>
+
+            let map;
+            
+            let markers = [];
+           
+
+			<!-- Loads Default Map -->
+            function initMap()
+            {
+            	
+                map = new google.maps.Map(document.getElementById("map"), {center: { lat: 42.107246, lng: -87.8962493 }, zoom: 15,});
+                map.setOptions({draggable: false});
+                map.setOptions({clickableIcons: false});
+                
+            }
+            
+            <!-- Loads New Map -->
+            function initMapOne(lat, long)
+            {
+            
+            	map.setCenter(new google.maps.LatLng(lat, long));
+            
+            }
+            
+            <!-- Place Marker in Map -->
+            function putMarker(slat, slong, sm)
+            {
+            	var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+            
+            	const myLatLng = { lat: slat, lng: slong};
+            	
+                const marker = new google.maps.Marker({position: myLatLng, map: map, title: sm, icon: iconBase + 'snack_bar.png'});
+                
+                markers.push(marker);
+            }
+            
+            <!-- Removes Marker From The Map --> 
+            function removeMarker(idx)
+            {
+            	markers[idx].setMap(null);
+            }
+            
+           
+
+        </Script>
+    <body>
+        <script defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBC8Q5Al25yzNO2lWGwyCo9TmuUZDSO9dc&callback=initMap">
+        </script>
+    </body>
+
